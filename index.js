@@ -20,13 +20,11 @@ $(document).on("keydown", () => {
 });
 
 // To run this on mobiles and tablets.
-$("h1").on("touchend", (event) => {
-            if (!gameStarted) {
-                console.log(event)
-                // $("#level-title").text("Level " + level);
-                computerTurn();
-                gameStarted = true;
-  }
+$("#level-title").on("touchend", () => {
+    if (!gameStarted) {
+            computerTurn();
+            gameStarted = true;
+    }
 });
 
 $(".btn").on("click", (event) => {
