@@ -11,31 +11,47 @@ var playerArray = [];     // register all player moves in this.
 
 // PLAY GAME :
 
-$(document).on("keydown", () => {
-    if (!gameStarted) {
-        // $("#level-title").text("Level " + level);
-        computerTurn();
-        gameStarted = true;
-    }
-});
+function is_touch_enabled() {
+  return ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0);
+}
+if (is_touch_enabled()) {
+   $("#level-title").text("Press Here to Start");
+   $("h1").on("touchend", () => {
+      if (!gameStarted) {
+           computerTurn();
+           gameStarted = true;
+         }
+       });
 
-// To run this on mobiles and tablets.
-$("#level-title").on("touchend", () => {
-    if (!gameStarted) {
-            computerTurn();
-            gameStarted = true;
-    }
-});
+       $(".btn").on("touchend", (event) => {
+                var playerString = event.target.id;
+                console.log(playerString);
+                playerArray.push(playerString);
+                console.log(playerArray);
+                playSound(playerString);
+                playerClickAnimation(event);
+                checkArray(playerArray.length - 1);
+            });
+} else {
+       $(document).on("keydown", () => {
+          if (!gameStarted) {
+               computerTurn();
+               gameStarted = true;
+              }
+          });
 
-$(".btn").on("click", (event) => {
-    var playerString = event.target.id;
-    // console.log(playerString);
-    playerArray.push(playerString);
-    console.log(playerArray)
-    playSound(playerString);
-    playerClickAnimation(event);
-    checkArray(playerArray.length - 1);
-})
+          $(".btn").on("click", (event) => {
+                var playerString = event.target.id;
+                console.log(playerString);
+                playerArray.push(playerString);
+                console.log(playerArray);
+                playSound(playerString);
+                playerClickAnimation(event);
+                checkArray(playerArray.length - 1);
+            });
+ }
+
+
 
 function playerClickAnimation(event) {
     // add class when button pressed.
