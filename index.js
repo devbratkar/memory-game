@@ -71,8 +71,11 @@ function checkArray(currentLevel) {
     } else {
         playSound("wrong");
         $("body").addClass("game-over");
-        $("#level-title").text("Game Over, Press Any Key to Restart");
-
+        if (is_touch_enabled) {
+               $("#level-title").text("Game Over, Press Here to Restart");
+        } else {
+               $("#level-title").text("Game Over, Press Any Key to Restart");
+        }
         setTimeout(function () {
             $("body").removeClass("game-over");
           }, 300);
